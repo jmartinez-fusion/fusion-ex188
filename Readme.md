@@ -31,7 +31,7 @@
     - 2° container: RUN_ENV=container-2
 
 ## Task 4: Write a Containerfile and create and push Container Image in registry
-- Create Containerfile: 'Containerfile.mydb'
+### Create Containerfile: 'Containerfile.mydb'
   - Use image docker.io/library/mariadb:latest
   - Copy init-mariadb.sql file to /docker-entrypoint-initdb.d/ container directory
   - Two build arguments
@@ -47,7 +47,7 @@
 - Create image from Containerfile and pass build params 'fusion' for both parameters and name image 'mariadb-fusion'
 - Push image to repo quay.io/$USERNAME/mariadb-fusion, where $USERNAME is your quay.io username.
 
-- Create Containerfile: 'Containerfile.mydb.extra'
+### Create Containerfile: 'Containerfile.mydb.extra'
   - Use image docker.io/library/postgres:latest
   - Copy init-mariadb.sql file to /docker-entrypoint-initdb.d/ container directory
   - Three environment variables.
@@ -84,4 +84,30 @@
     - WORDPRESS_DB_NAME=wordpress_db
     - WORDPRESS_DB_USER=dbuser
     - WORDPRESS_DB_PASSWORD=mypass
+  - Use image docker.io/wordpress:latest 
+
+## Task 6: Troubleshooting
+- Create network my-app-tr
+- Create volume my-db-vol-tr
+- Create volume my-app-vol-tr
+- Run container 1
+  - Name 'wordpress-db-tr'
+  - Attach network my-app-tr
+  - Attach volume my-db-vol-tr to /var/lib/mysql
+  - Set following environment variables
+    - MYSQL_ROOT_PASSWORD=mypass
+    - MYSQL_PASSWORD=mypass
+    - MYSQL_DATABASE=wordpress_db
+    - MYSQL_USER=dbuser
+  - Use image docker.io/mariadb:latest
+- Run container 2
+  - Name 'wordpress-app-tr'
+  - Attach network my-app-tr
+  - Attach volume my-app-vol-tr to /var/www/html
+  - Bind local port 8005 to container port 8080
+  - Set following environment variables
+    - WORDPRESS_DB_HOST=wordpress-db:3306
+    - WORDPRESS_DB_NAME=wordpress_db
+    - WORDPRESS_DB_USER=dbuser
+    - WORDPRESS_DB_PASSWORD=mypassword
   - Use image docker.io/wordpress:latest 
