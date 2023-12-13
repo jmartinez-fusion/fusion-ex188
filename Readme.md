@@ -31,23 +31,34 @@
     - 2° container: RUN_ENV=container-2
 
 ## Task 4: Write a Containerfile and create and push Container Image in registry
-- Create Containerfile: 'Containerfile-mydb'
-  - Use image mariadb:latest
-  - Copy test.sql file to /docker-entrypoint-initdb.d/ container directory
+- Create Containerfile: 'Containerfile.mydb'
+  - Use image docker.io/library/mariadb:latest
+  - Copy init-mariadb.sql file to /docker-entrypoint-initdb.d/ container directory
   - Two build arguments
     a. DB_ROOT_PASSWORD
     b. DB_PASSWORD
   - Four environment variables.
-    a. MYSQL_DATABASE, value: test
+    a. MYSQL_DATABASE, value: fusion
     b. MYSQL_USER, value: admin
     c. MYSQL_ROOT_PASSWORD
     d. MYSQL_PASSWORD
   - MYSQL_ROOT_PASSWORD and MYSQL_PASSWORD will take values from build params DB_ROOT_PASSWORD and DB_PASSWORD respectively.
   - Expose to port 3306
-- Create image from Containerfile and pass build params 'admin' for both parameters and name image 'mariadb-with-db'
-- Push image to repo quay.io/${username}/mariadb-with-db
+- Create image from Containerfile and pass build params 'fusion' for both parameters and name image 'mariadb-fusion'
+- Push image to repo quay.io/$USERNAME/mariadb-fusion, where $USERNAME is your quay.io username.
 
-- Create Containerfile: 'Containerfile-mydb-extra'
+- Create Containerfile: 'Containerfile.mydb.extra'
+  - Use image docker.io/library/postgres:latest
+  - Copy init-mariadb.sql file to /docker-entrypoint-initdb.d/ container directory
+  - Three environment variables.
+    a. POSTGRES_DB, value: fusion
+    b. POSTGRES_USER, value: admin
+    c. POSTGRES_PASSWORD, value: admin
+  - Expose to port 5432
+  - Start container with the following executable: postgres -D /var/lib/postgresql/data -c config_file=/usr/share/postgresql/postgresql.conf.sample
+- Name the container image as 'postgresql-fusion'
+- Tag the postgresql-fusion image as quay.io/$USERNAME/postgresql-fusion:1.0.0, where $USERNAME is your quay.io username.
+- Push the tagged container image to Red Hat’s quay.io repository
 
 ## Task 5: Multi container application in a Network
 - Create network my-app
