@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS devops (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar(32) NOT NULL,
-    PRIMARY KEY (id)
+    id SERIAL PRIMARY KEY,
+    name varchar(32) NOT NULL
 );
 
-INSERT INTO test (name) VALUES
+
+INSERT INTO devops (name) VALUES
 ('Pablo'),
 ('Lucho'),
 ('Flor'),

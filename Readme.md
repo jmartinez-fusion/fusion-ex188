@@ -49,7 +49,7 @@
 
 ### Create Containerfile: 'Containerfile.mydb.extra'
   - Use image **docker.io/library/postgres:latest**
-  - Copy init-mariadb.sql file to /docker-entrypoint-initdb.d/ container directory
+  - Copy init-psql.sql file to /docker-entrypoint-initdb.d/ container directory
   - Three environment variables.
     1. POSTGRES_DB, value: fusion
     2. POSTGRES_USER, value: admin
